@@ -40,18 +40,13 @@ public class ParallelizationTest
     }
 
     [Fact]
-    public void CantBeDoneWhenThereIsACycle()
+    public void CantAddCycleDependency()
     {
-        //given
         var stage1 = new Stage("Stage1");
         var stage2 = new Stage("Stage2");
         stage2.DependsOn(stage1);
-        stage1.DependsOn(stage2); // making it cyclic
 
-        //when
-        var sortedStages = StageParallelization.Of(new HashSet<Stage> { stage1, stage2 });
 
-        //then
-        Assert.Empty(sortedStages.All);
+        Assert.ThrowsAny<Exception>(() => stage1.DependsOn(stage2));
     }
 }

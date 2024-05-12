@@ -8,6 +8,11 @@ public record Stage(string StageName, ISet<Stage> Dependencies, ISet<ResourceNam
 
     public Stage DependsOn(Stage stage)
     {
+        bool cycleFound = stage.Dependencies.Any((x => x.StageName == StageName));
+        if (cycleFound)
+        {
+            throw new InvalidOperationException("Cycle found");
+        }
         Dependencies.Add(stage);
         return this;
     }
