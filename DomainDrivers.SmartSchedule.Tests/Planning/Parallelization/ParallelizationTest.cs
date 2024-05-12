@@ -21,7 +21,6 @@ public class ParallelizationTest
     [Fact]
     public void TestSimpleDependencies()
     {
-        //given
         var stage1 = new Stage("Stage1");
         var stage2 = new Stage("Stage2");
         var stage3 = new Stage("Stage3");
@@ -30,10 +29,8 @@ public class ParallelizationTest
         stage3.DependsOn(stage1);
         stage4.DependsOn(stage2);
 
-        //when
         var sortedStages = StageParallelization.Of(new HashSet<Stage> { stage1, stage2, stage3, stage4 });
 
-        //then
         Assert.Equal("Stage1 | Stage2, Stage3 | Stage4", sortedStages.Print());
     }
 
