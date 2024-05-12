@@ -9,15 +9,13 @@ public class ParallelizationTest
     [Fact]
     public void EverythingCanBeDoneInParallelWhenThereAreNoDependencies()
     {
-        //given
         var stage1 = new Stage("Stage1");
         var stage2 = new Stage("Stage2");
 
-        //when
         var sortedStages = StageParallelization.Of(new HashSet<Stage>() { stage1, stage2 });
 
-        //then
         Assert.Equal(1, sortedStages.All.Count);
+        Assert.Equal("Stage1, Stage2", sortedStages.Print());
     }
 
     [Fact]

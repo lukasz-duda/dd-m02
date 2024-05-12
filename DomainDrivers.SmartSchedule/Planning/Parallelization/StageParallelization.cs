@@ -4,6 +4,7 @@ public class StageParallelization
 {
     public ParallelStagesList Of(ISet<Stage> stages)
     {
-        return ParallelStagesList.Empty();
+        return ParallelStagesList.Empty()
+            .Add(new ParallelStages(new HashSet<Stage>(stages)));
     }
 }
